@@ -55,7 +55,6 @@ public class PDFCacheUtils {
     /**
      *
      */
-
     public PDFInfo getPDFInfo(File file) throws IOException {
         if (file.exists()) {
             PDFInfo pdfInfo = new PDFInfo();
@@ -125,11 +124,6 @@ public class PDFCacheUtils {
         pxy[1] = (90.0 + lat) / res;
         return new int[]{(int) (Math.ceil(pxy[0] / 256.0) - 1), (int) (Math.ceil(pxy[1] / 256.0) - 1)};
     }
-
-//    public double getRowCol(double lon, double lat, int zoom) {
-//        int col1 = (int) Math.floor((lat - originPoint.x) / tileSize / plottingResolution);
-//        int row1 = (int) Math.floor((Math.abs(lon - originPoint.y)) / tileSize / plottingResolution);
-//    }
 
     /**
      * @param envelope PDF地理范围
