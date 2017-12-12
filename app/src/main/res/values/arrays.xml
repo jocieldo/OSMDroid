@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="create_fclass_attr_type">
+        <item>TEXT</item>
+        <item>INTEGER</item>
+        <item>REAL</item>
+        <item>PHOTO</item>
+        <item>AUDIO</item>
+        <item>VIDEO</item>
+    </string-array>
+    <string-array name="create_fclass_type_array">
+        <item>点</item>
+        <item>线</item>
+        <item>面</item>
+    </string-array>
+</resources>

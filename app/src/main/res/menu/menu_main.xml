@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@mipmap/ic_action_search"
+        android:title="搜索"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/action_layers"
+        android:icon="@mipmap/ic_action_database"
+        android:title="图层列表"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_add"
+        android:icon="@mipmap/ic_action_tick"
+        android:title="添加"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_select_workspace"
+        android:icon="@mipmap/ic_action_folder_open"
+        android:title="选择工作空间"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_create_featureclass"
+        android:icon="@mipmap/ic_action_creditcard"
+        android:title="创建要素类"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_save_geopackage"
+        android:icon="@mipmap/ic_action_tags"
+        android:title="保存编辑"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_save_photo"
+        android:icon="@mipmap/ic_action_tags"
+        android:title="拍照"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_create_tile"
+        android:icon="@mipmap/ic_action_tags"
+        android:title="创建切片"
+        app:showAsAction="never" />
+
+
+    <!--<group android:id="@+id/tb_group_main">-->
+
+
+        <!--<item-->
+            <!--android:id="@+id/tb_switch"-->
+            <!--android:icon="@mipmap/ic_autorenew_white_24dp"-->
+            <!--android:title="Switch group"-->
+            <!--app:showAsAction="always" />-->
+
+    <!--</group>-->
+
+    <!--<group android:id="@+id/tb_group_contextual">-->
+
+        <!--<item-->
+            <!--android:id="@+id/tb_done"-->
+            <!--android:icon="@mipmap/ic_done_white_24dp"-->
+            <!--android:title="Done"-->
+            <!--app:showAsAction="always" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/tb_done_all"-->
+            <!--android:icon="@mipmap/ic_done_all_white_24dp"-->
+            <!--android:title="Done all"-->
+            <!--app:showAsAction="never" />-->
+
+    <!--</group>-->
+
+    <!--<item-->
+        <!--android:id="@+id/tb_theme"-->
+        <!--android:icon="@mipmap/ic_visibility_white_24dp"-->
+        <!--android:title="Change Theme"-->
+        <!--app:showAsAction="always" />-->
+</menu>

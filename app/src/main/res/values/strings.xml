@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Collector</string>
+    <string name="app_child_name">child Activity</string>
+    <string name="app_fclass_create_name">创建要素类</string>
+    <string name="app_file_exporer">File Exporer Activity</string>
+    <string name="action_settings">action_settings</string>
+    <string name="action_fileselector_ok">完成</string>
+    <string name="layer_tile_name">切片图层</string>
+    <string name="layer_name">图层列表</string>
+    <string name="check_text_visible">可见</string>
+    <string name="button_text_edit">编辑</string>
+    <string name="rd_repeat">Repeat</string>
+    <string name="rd_daily">Daily</string>
+    <string name="rd_weekly">Weekly</string>
+    <string name="rd_monthly">Monthly</string>
+    <string name="rd_yearly">Yearly</string>
+    <string name="rd_none">None</string>
+    <string name="rd_every">Every</string>
+    <string name="rd_day">day</string>
+    <string name="rd_days">days</string>
+    <string name="rd_week">week</string>
+    <string name="rd_weeks">weeks</string>
+    <string name="rd_month">month</string>
+    <string name="rd_months">months</string>
+    <string name="rd_year">year</string>
+    <string name="rd_years">years</string>
+    <string name="rd_forever">Forever</string>
+    <string name="rd_until">Until</string>
+    <string name="rd_until_full">Until a date</string>
+    <string name="rd_for">For</string>
+    <string name="rd_for_full">For a number of events</string>
+    <string name="rd_month_same_day">on the same day each month</string>
+    <string name="rd_month_last">on every last %s</string>
+    <string name="rd_month_first">on every first %s</string>
+    <string name="rd_month_second">on every second %s</string>
+    <string name="rd_month_third">on every third %s</string>
+    <string name="rd_month_fourth">on every fourth %s</string>
+    <string name="rd_event">event</string>
+    <string name="rd_events">events</string>
+    <string name="attr_list">属性列表</string>
+
+</resources>

@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_fileselect_ok"
+        android:icon="@mipmap/ic_action_add"
+        android:title="@string/action_fileselector_ok"
+        app:showAsAction="ifRoom" />
+</menu>

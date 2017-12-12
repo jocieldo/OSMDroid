@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="#ecf0f1"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/layer_item_layername"
+        android:layout_width="0dp"
+        android:layout_weight="0.4"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        android:text="Point_Layer"
+        android:textColor="#111111"
+        android:textSize="10sp"
+        tools:ignore="Suspicious0dp" />
+
+    <TextView
+        android:id="@+id/layer_item_layertype"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        android:text="Polygon"
+        android:textColor="#111111"
+        android:textSize="10sp"
+        android:layout_weight="0.2"
+        tools:ignore="Suspicious0dp" />
+
+    <CheckBox
+        android:id="@+id/layer_item_visible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="@string/check_text_visible"
+        android:layout_gravity="center"
+        android:textSize="10sp"
+        android:layout_weight="0.2"
+        tools:ignore="Suspicious0dp" />
+
+    <CheckBox
+        android:id="@+id/layer_item_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="@string/button_text_edit"
+        android:textSize="10sp"
+        android:layout_weight="0.2"
+        tools:ignore="Suspicious0dp" />
+</LinearLayout>
