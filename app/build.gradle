@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.zhjf.osmdroid.demo"
@@ -59,9 +59,9 @@ ext {
 
 dependencies {
     //osmdroid
-    compile(name: 'osmdroid-android-6.0.0', ext: 'aar')
-    compile(name: 'osmdroid-geopackage-6.0.0', ext: 'aar')
-    compile(name: 'osmdroid-third-party-6.0.0', ext: 'aar')
+    compile(name: 'osmdroid-android-6.0.0-SNAPSHOT-release', ext: 'aar')
+    compile(name: 'osmdroid-geopackage-6.0.0-SNAPSHOT-release', ext: 'aar')
+    compile(name: 'osmdroid-third-party-6.0.0-SNAPSHOT-release', ext: 'aar')
     compile 'mil.nga.geopackage:geopackage-android:1.4.1'
     //material设计
     compile(name: 'material', ext: 'aar')

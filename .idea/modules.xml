@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OSMDroid.iml" filepath="$PROJECT_DIR$/OSMDroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gdal2tiles/gdal2tiles.iml" filepath="$PROJECT_DIR$/gdal2tiles/gdal2tiles.iml" />
     </modules>
   </component>
 </project>

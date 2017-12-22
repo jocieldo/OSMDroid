@@ -128,14 +128,15 @@
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-23.4.0" level="project" />
     <orderEntry type="library" name="com.squareup.leakcanary:leakcanary-analyzer:1.3.1@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-core-ui-25.2.0" level="project" />
+    <orderEntry type="library" name="osmdroid-geopackage-6.0.0-SNAPSHOT-release:@aar" level="project" />
     <orderEntry type="library" name="io.reactivex:rxandroid-1.2.1" level="project" />
-    <orderEntry type="library" name="osmdroid-android-6.0.0:@aar" level="project" />
     <orderEntry type="library" name="com.android.support:support-media-compat-25.2.0" level="project" />
     <orderEntry type="library" name="com.soundcloud.android.crop:lib_crop-1.0.0" level="project" />
     <orderEntry type="library" name="com.madgag.spongycastle:core:1.51.0.0@jar" level="project" />
     <orderEntry type="library" name="ar.com.hjg:pngj:2.1.0@jar" level="project" />
     <orderEntry type="library" name="mil.nga:tiff:1.0.3@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-25.2.0" level="project" />
+    <orderEntry type="library" name="osmdroid-android-6.0.0-SNAPSHOT-release:@aar" level="project" />
     <orderEntry type="library" name="com.android.support:support-fragment-25.2.0" level="project" />
     <orderEntry type="library" name="com.squareup.haha:haha:1.3@jar" level="project" />
     <orderEntry type="library" name="io.reactivex:rxjava:1.2.1@jar" level="project" />
@@ -148,13 +149,12 @@
     <orderEntry type="library" name="com.android.support:support-core-utils-25.2.0" level="project" />
     <orderEntry type="library" name="com.squareup.picasso:picasso:2.5.0@jar" level="project" />
     <orderEntry type="library" name="com.madgag.spongycastle:pkix:1.51.0.0@jar" level="project" />
-    <orderEntry type="library" name="osmdroid-third-party-6.0.0:@aar" level="project" />
+    <orderEntry type="library" name="osmdroid-third-party-6.0.0-SNAPSHOT-release:@aar" level="project" />
     <orderEntry type="library" name="com.android.support:cardview-v7-23.4.0" level="project" />
     <orderEntry type="library" name="me.shaohui.advancedluban:library-1.3.2" level="project" />
     <orderEntry type="library" name="com.madgag.spongycastle:prov:1.51.0.0@jar" level="project" />
     <orderEntry type="library" name="com.j256.ormlite:ormlite-android:5.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-compat-25.2.0" level="project" />
-    <orderEntry type="library" name="osmdroid-geopackage-6.0.0:@aar" level="project" />
     <orderEntry type="library" name="com.squareup.leakcanary:leakcanary-watcher:1.3.1@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:25.2.0@jar" level="project" />
     <orderEntry type="library" name="com.j256.ormlite:ormlite-core:5.0@jar" level="project" />
