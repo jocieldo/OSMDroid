@@ -267,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
                     if (!targetCacheFile.exists()) {
                         PDFCacheUtils utils = new PDFCacheUtils(MainActivity.this);
                         PDFCacheUtils.PDFInfo pdfInfo = utils.getPDFInfo(new File(FilePathManage.getInstance().getMap()));
-                        utils.createCache3(new File(mapName).getName(), pdfInfo.envelope, 15, 16, pdfInfo.bitmap);
+//                        utils.createCache3(new File(mapName).getName(), pdfInfo.envelope, 15, 16, pdfInfo.bitmap);
+                        utils.createCache4(new File(mapName).getName(), pdfInfo.envelope, 15, 16, pdfInfo.bitmap);
                     }
                     CustomTileSource source = new CustomTileSource(targetCacheFile.getAbsolutePath(), 15, 16, 256, ".png");
                     MapTileModuleProviderBase moduleProvider = new MapTileFileProvider(source);

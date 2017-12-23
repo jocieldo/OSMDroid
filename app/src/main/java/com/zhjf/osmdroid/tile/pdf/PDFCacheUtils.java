@@ -5,6 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
+
+import com.rgi.common.BoundingBox;
+import com.rgi.common.Dimensions;
+import com.rgi.common.coordinate.CoordinateReferenceSystem;
+import com.rgi.g2t.RawImageTileReader2;
+import com.rgi.store.tiles.TileStoreException;
 import com.tom_roush.pdfbox.cos.COSArray;
 import com.tom_roush.pdfbox.cos.COSBase;
 import com.tom_roush.pdfbox.cos.COSDictionary;
@@ -14,6 +20,7 @@ import com.tom_roush.pdfbox.pdmodel.PDPage;
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle;
 import com.tom_roush.pdfbox.rendering.PDFRenderer;
 import com.zhjf.osmdroid.geopackage.FilePathManage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,8 +32,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import mil.nga.wkb.geom.GeometryEnvelope;
 import mil.nga.wkb.geom.Point;
+
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 
@@ -388,9 +397,41 @@ public class PDFCacheUtils {
         }
     }
 
-    //    public static final int[] SCALE = {20, 50, 100, 200, 500, 1000, 2000,
-//            5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000,
-//            2000000, 5000000, 10000000};
+    public void createCache4(String cacheName, GeometryEnvelope envelope, int minZoom, int maxZoom, Bitmap image) {
+        File sFolderDir = new File(FilePathManage.getInstance().getCacheDirectory() + "/" + cacheName);
+        if (!sFolderDir.exists())
+            sFolderDir.mkdirs();
+
+        Dimensions<Integer> tileSize = new Dimensions<>(256, 256);
+        BoundingBox boundingBox = new BoundingBox(envelope.getMinX(), envelope.getMinY(), envelope.getMaxX(), envelope.getMaxY());
+        try {
+            RawImageTileReader2 rawImageTileReader = new RawImageTileReader2(cacheName, image, tileSize, new CoordinateReferenceSystem(null, "EPSG", 4326), boundingBox);
+            rawImageTileReader.stream().filter(tile -> tile.getZoomLevel() == maxZoom).forEach(tile -> {
+                try {
+                    Bitmap bitmap = tile.getImage();
+                    final File zoomDirectory = new File(sFolderDir.getAbsolutePath() + "/" + tile.getZoomLevel());
+                    if (!zoomDirectory.exists()) {
+                        zoomDirectory.mkdir();
+                    }
+                    File file = new File(zoomDirectory, tile.getRow() + "_" + tile.getColumn() + "_" + tile.getZoomLevel() + ".png");
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 96, fileOutputStream);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                } catch (final TileStoreException exp) {
+                    throw new RuntimeException(exp);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (TileStoreException e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<ScaleLevel> scaleLevels = new ArrayList<>();
 
     private void initScale() {

@@ -1,1 +1,1 @@
-include ':app', ':gdal2tiles'
+include ':app'
