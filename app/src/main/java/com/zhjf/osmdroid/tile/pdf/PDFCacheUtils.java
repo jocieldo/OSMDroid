@@ -6,11 +6,6 @@ import android.graphics.Rect;
 import android.util.ArrayMap;
 import android.util.DisplayMetrics;
 
-import com.rgi.common.BoundingBox;
-import com.rgi.common.Dimensions;
-import com.rgi.common.coordinate.CoordinateReferenceSystem;
-import com.rgi.g2t.RawImageTileReader2;
-import com.rgi.store.tiles.TileStoreException;
 import com.tom_roush.pdfbox.cos.COSArray;
 import com.tom_roush.pdfbox.cos.COSBase;
 import com.tom_roush.pdfbox.cos.COSDictionary;
@@ -20,6 +15,8 @@ import com.tom_roush.pdfbox.pdmodel.PDPage;
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle;
 import com.tom_roush.pdfbox.rendering.PDFRenderer;
 import com.zhjf.osmdroid.geopackage.FilePathManage;
+
+import rgi.common.coordinate.CoordinateReferenceSystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +32,10 @@ import java.util.Map;
 
 import mil.nga.wkb.geom.GeometryEnvelope;
 import mil.nga.wkb.geom.Point;
+import rgi.common.BoundingBox;
+import rgi.common.Dimensions;
+import rgi.g2t.RawImageTileReader;
+import rgi.store.tiles.TileStoreException;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
@@ -405,7 +406,7 @@ public class PDFCacheUtils {
         Dimensions<Integer> tileSize = new Dimensions<>(256, 256);
         BoundingBox boundingBox = new BoundingBox(envelope.getMinX(), envelope.getMinY(), envelope.getMaxX(), envelope.getMaxY());
         try {
-            RawImageTileReader2 rawImageTileReader = new RawImageTileReader2(cacheName, image, tileSize, new CoordinateReferenceSystem(null, "EPSG", 4326), boundingBox);
+            RawImageTileReader rawImageTileReader = new RawImageTileReader(cacheName, image, tileSize, new CoordinateReferenceSystem(null, "EPSG", 4326), boundingBox);
             rawImageTileReader.stream().filter(tile -> tile.getZoomLevel() == maxZoom).forEach(tile -> {
                 try {
                     Bitmap bitmap = tile.getImage();

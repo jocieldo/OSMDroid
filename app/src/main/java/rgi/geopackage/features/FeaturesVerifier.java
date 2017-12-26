@@ -23,6 +23,8 @@
 
 package rgi.geopackage.features;
 
+import android.text.TextUtils;
+
 import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -46,7 +48,7 @@ import rgi.geopackage.verification.Severity;
 import rgi.geopackage.verification.VerificationLevel;
 import rgi.geopackage.verification.Verifier;
 
-import static com.rgi.geopackage.verification.Assert.assertTrue;
+import static rgi.geopackage.verification.Assert.assertTrue;
 
 /**
  * @author Luke Lambert
@@ -111,7 +113,7 @@ public class FeaturesVerifier extends Verifier {
                 .collect(Collectors.toList());
 
         assertTrue(String.format("The following feature table entries in the gpkg_contents table are missing or are missing a primary key column: %s",
-                String.join(", ", missingFeatureTables)),
+                TextUtils.join(", ", missingFeatureTables)),
                 missingFeatureTables.isEmpty(),
                 Severity.Warning);
     }

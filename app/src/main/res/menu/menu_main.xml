@@ -48,6 +48,12 @@
         android:title="创建切片"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_open_shape"
+        android:icon="@mipmap/ic_action_tags"
+        android:title="打开Shape"
+        app:showAsAction="never" />
+
 
     <!--<group android:id="@+id/tb_group_main">-->
 

@@ -26,7 +26,6 @@ package rgi.g2t;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 
 import org.gdal.gdal.Dataset;
 
@@ -76,21 +75,15 @@ public class RawImageTileReader implements TileStoreReader {
     /**
      * Constructor
      *
-     * @param rawImage    A raster image
-     * @param tileSize    A {@link Dimensions} that describes what an individual tile
-     *                    looks like
-     * @param noDataColor The {@link Color} of the NODATA fields within the raster image
+     * @param rawImage A raster image
+     * @param tileSize A {@link Dimensions} that describes what an individual tile
+     *                 looks like
      * @throws TileStoreException Thrown when GDAL could not get the correct
      *                            {@link CoordinateReferenceSystem} of the input raster OR if
      *                            the raw image could not be loaded as a {@link Dataset}
      */
-    public RawImageTileReader(final File rawImage,
-                              final Dimensions<Integer> tileSize,
-                              final Color noDataColor) throws TileStoreException {
-        this(rawImage,
-                tileSize,
-                noDataColor,
-                null);
+    public RawImageTileReader(final File rawImage, final Dimensions<Integer> tileSize) throws TileStoreException {
+        this(rawImage, tileSize, null);
     }
 
     /**
@@ -99,30 +92,18 @@ public class RawImageTileReader implements TileStoreReader {
      * @param rawImage                  A raster image {@link File}
      * @param tileSize                  A {@link Dimensions} that describes what an individual tile
      *                                  looks like
-     * @param noDataColor               The {@link Color} of the NODATA fields within the raster image
      * @param coordinateReferenceSystem The {@link CoordinateReferenceSystem} the tiles should be
      *                                  output in
      * @throws TileStoreException Thrown when GDAL could not get the correct
      *                            {@link CoordinateReferenceSystem} of the input raster OR if
      *                            the raw image could not be loaded as a {@link Dataset}
      */
-    public RawImageTileReader(final File rawImage,
-                              final Dimensions<Integer> tileSize,
-                              final Color noDataColor,
-                              final CoordinateReferenceSystem coordinateReferenceSystem) throws TileStoreException {
-        this(rawImage,
-                GdalUtility.open(rawImage, coordinateReferenceSystem),
-                tileSize,
-                noDataColor,
-                coordinateReferenceSystem);
+    public RawImageTileReader(final File rawImage, final Dimensions<Integer> tileSize, final CoordinateReferenceSystem coordinateReferenceSystem) throws TileStoreException {
+        this(rawImage, GdalUtility.open(rawImage, coordinateReferenceSystem), tileSize, coordinateReferenceSystem);
     }
 
 
-    public RawImageTileReader(final File rawImage,
-                              final Dataset dataset,
-                              final Dimensions<Integer> tileSize,
-                              final Color noDataColor,
-                              final CoordinateReferenceSystem coordinateReferenceSystem) throws TileStoreException {
+    public RawImageTileReader(final File rawImage, final Dataset dataset, final Dimensions<Integer> tileSize, final CoordinateReferenceSystem coordinateReferenceSystem) throws TileStoreException {
         if (rawImage == null || !rawImage.canRead()) {
             throw new IllegalArgumentException("Raw image may not be null, and must represent a valid file on disk.");
         }
@@ -133,10 +114,6 @@ public class RawImageTileReader implements TileStoreReader {
 
         this.rawImage = rawImage;
         this.tileSize = tileSize;
-
-        // TODO check noDataColor for null when the feature is implemented
-        // this.noDataColor = noDataColor;
-
         this.dataset = dataset;
 
         try {
@@ -145,7 +122,8 @@ public class RawImageTileReader implements TileStoreReader {
             }
 
             if (this.dataset.GetRasterBand(1).GetColorTable() != null) {
-                System.out.println("expand this raster to RGB/RGBA"); // TODO: make a temporary vrt with gdal_translate to expand this to RGB/RGBA
+                System.out.println("expand this raster to RGB/RGBA");
+                // TODO: make a temporary vrt with gdal_translate to expand this to RGB/RGBA
             }
 
             // We cannot tile an image with no geo referencing information
@@ -819,7 +797,6 @@ public class RawImageTileReader implements TileStoreReader {
     private final File rawImage;
     private final CoordinateReferenceSystem coordinateReferenceSystem;
     private final Dimensions<Integer> tileSize;
-    //private final Color                                    noDataColor; // TODO implement no-data color handling
     private final Dataset dataset;
     private final BoundingBox dataBounds;
     private final Set<Integer> zoomLevels;

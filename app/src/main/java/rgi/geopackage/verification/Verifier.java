@@ -23,6 +23,8 @@
 
 package rgi.geopackage.verification;
 
+import android.text.TextUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -45,8 +47,8 @@ import java.util.stream.Stream;
 import rgi.common.Pair;
 import rgi.common.util.jdbc.JdbcUtility;
 
-import static com.rgi.geopackage.verification.Assert.assertTrue;
 import static java.util.stream.Collectors.toMap;
+import static rgi.geopackage.verification.Assert.assertTrue;
 
 /**
  * @author Luke Lambert
@@ -210,14 +212,14 @@ public class Verifier {
         if (errors.isEmpty()) {
             assertTrue(String.format("Table %s doesn't match the expected table definition in the following ways:\n%s",
                     tableName,
-                    String.join("\n", warnings)),
+                    TextUtils.join("\n", warnings)),
                     warnings.isEmpty(),
                     Severity.Warning);
         } else {
             errors.addAll(warnings);
             assertTrue(String.format("Table %s doesn't match the expected table definition in the following ways:\n%s",
                     tableName,
-                    String.join("\n", errors)),
+                    TextUtils.join("\n", errors)),
                     errors.isEmpty(),
                     Severity.Error);
         }
@@ -281,11 +283,7 @@ public class Verifier {
                                              final Iterable<UniqueDefinition> requiredGroupUniques,
                                              final Collection<UniqueDefinition> uniques) throws AssertionError {
         for (final UniqueDefinition groupUnique : requiredGroupUniques) {
-            assertTrue(String.format("The table %s is missing the column group unique constraint: (%s)",
-                    tableName,
-                    String.join(", ", groupUnique.getColumnNames())),
-                    uniques.contains(groupUnique),
-                    Severity.Error);
+            assertTrue(String.format("The table %s is missing the column group unique constraint: (%s)", tableName, TextUtils.join(", ", groupUnique.getColumnNames())), uniques.contains(groupUnique), Severity.Error);
         }
     }
 

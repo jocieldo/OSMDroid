@@ -23,6 +23,8 @@
 
 package rgi.geopackage.tiles;
 
+import android.text.TextUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,8 +59,8 @@ import rgi.geopackage.verification.UniqueDefinition;
 import rgi.geopackage.verification.VerificationLevel;
 import rgi.geopackage.verification.Verifier;
 
-import static com.rgi.geopackage.verification.Assert.assertTrue;
-import static com.rgi.geopackage.verification.Assert.fail;
+import static rgi.geopackage.verification.Assert.assertTrue;
+import static rgi.geopackage.verification.Assert.fail;
 
 /**
  * @author Jenifer Cochran
@@ -136,7 +138,7 @@ public class TilesVerifier extends Verifier {
 
         assertTrue(String.format("The following table(s) match the specification for a tile pyramid user data table, but are not refrenced in %s: %s.",
                 GeoPackageCore.ContentsTableName,
-                String.join(", ", missingTileTableNames)),
+                TextUtils.join(", ", missingTileTableNames)),
                 missingTileTableNames.isEmpty(),
                 Severity.Warning);
     }
@@ -370,7 +372,7 @@ public class TilesVerifier extends Verifier {
             assertTrue(String.format("The following table name(s) in %s are not referenced in the %s table: %s",
                     GeoPackageTiles.MatrixSetTableName,
                     GeoPackageCore.ContentsTableName,
-                    String.join(", ", missingTableReference)),
+                    TextUtils.join(", ", missingTableReference)),
                     missingTableReference.isEmpty(),
                     Severity.Warning);
         }
@@ -403,7 +405,7 @@ public class TilesVerifier extends Verifier {
 
             assertTrue(String.format("The following pyramid user data tables are not referenced in %s: %s",
                     GeoPackageTiles.MatrixSetTableName,
-                    String.join(", ", missingTableReferences)),
+                    TextUtils.join(", ", missingTableReferences)),
                     missingTableReferences.isEmpty(),
                     Severity.Error);
         }
@@ -531,7 +533,7 @@ public class TilesVerifier extends Verifier {
             assertTrue(String.format("The following table_name values in the %s table do not reference entries in the %s table: %s",
                     GeoPackageTiles.MatrixTableName,
                     GeoPackageCore.ContentsTableName,
-                    String.join(", ", unreferencedTables)),
+                    TextUtils.join(", ", unreferencedTables)),
                     unreferencedTables.isEmpty(),
                     Severity.Warning);
         }
@@ -681,7 +683,7 @@ public class TilesVerifier extends Verifier {
 
             assertTrue(String.format("The following tables have negative zoom level entires in the %s table: %s",
                     GeoPackageTiles.MatrixTableName,
-                    String.join(", ", tableNamesWithNegativeZoomLevels)),
+                    TextUtils.join(", ", tableNamesWithNegativeZoomLevels)),
                     tableNamesWithNegativeZoomLevels.isEmpty(),
                     Severity.Error);
         }

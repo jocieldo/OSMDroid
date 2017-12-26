@@ -25,11 +25,12 @@
 package rgi.store.routingnetworks.osm;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,9 +44,9 @@ import rgi.store.routingnetworks.NodeDimensionality;
 import rgi.store.routingnetworks.RoutingNetworkStoreException;
 import rgi.store.routingnetworks.RoutingNetworkStoreWriter;
 
-import static com.rgi.store.routingnetworks.osm.Constants.ELEVATION_NODE_ATTRIBUTE_NAME;
-import static com.rgi.store.routingnetworks.osm.Constants.LATITUDE_NODE_ATTRIBUTE_NAME;
-import static com.rgi.store.routingnetworks.osm.Constants.LONGITUDE_NODE_ATTRIBUTE_NAME;
+import static rgi.store.routingnetworks.osm.Constants.ELEVATION_NODE_ATTRIBUTE_NAME;
+import static rgi.store.routingnetworks.osm.Constants.LATITUDE_NODE_ATTRIBUTE_NAME;
+import static rgi.store.routingnetworks.osm.Constants.LONGITUDE_NODE_ATTRIBUTE_NAME;
 
 /**
  * @author Luke Lambert
@@ -82,8 +83,7 @@ public class OsmXmlRoutingNetworkStoreWriter implements RoutingNetworkStoreWrite
             throw new RoutingNetworkStoreException("Edge attribute descriptions must contain at least one entry named '" + WAY_HIGHWAY_TAG_KEY + '\'');
         }
 
-        try (final Writer writer = Files.newBufferedWriter(this.osmXmlFile.toPath(),
-                Charset.forName("UTF-8"))) {
+        try (final OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.osmXmlFile), Charset.forName("UTF-8"))) {
             writeOsmXmlHeader(writer);
 
             writeNote(writer, this.description);

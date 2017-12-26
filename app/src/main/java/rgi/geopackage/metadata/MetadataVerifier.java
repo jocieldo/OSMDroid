@@ -23,6 +23,8 @@
 
 package rgi.geopackage.metadata;
 
+import android.text.TextUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,8 +51,7 @@ import rgi.geopackage.verification.Requirement;
 import rgi.geopackage.verification.Severity;
 import rgi.geopackage.verification.VerificationLevel;
 import rgi.geopackage.verification.Verifier;
-
-import static com.rgi.geopackage.verification.Assert.assertTrue;
+import static rgi.geopackage.verification.Assert.assertTrue;
 
 /**
  * @author Luke Lambert
@@ -151,7 +152,7 @@ public class MetadataVerifier extends Verifier {
 
             assertTrue(String.format("The following md_scope(s) are invalid values in the %s table: %s",
                     GeoPackageMetadata.MetadataTableName,
-                    String.join(", ", invalidScopeValues)),
+                    TextUtils.join(", ", invalidScopeValues)),
                     invalidScopeValues.isEmpty(),
                     Severity.Warning);
         }
@@ -225,7 +226,7 @@ public class MetadataVerifier extends Verifier {
 
             assertTrue(String.format("The following reference_scope value(s) are invalid from the %s table: %s",
                     GeoPackageMetadata.MetadataReferenceTableName,
-                    String.join(", ", invalidScopeValues)),
+                    TextUtils.join(", ", invalidScopeValues)),
                     invalidScopeValues.isEmpty(),
                     Severity.Warning);
         }

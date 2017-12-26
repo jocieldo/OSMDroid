@@ -36,6 +36,14 @@ import com.zhjf.osmdroid.tile.MapTileFileProvider;
 import com.zhjf.osmdroid.tile.TileHelper;
 import com.zhjf.osmdroid.tile.pdf.PDFCacheUtils;
 
+import org.gdal.gdal.gdal;
+import org.gdal.ogr.DataSource;
+import org.gdal.ogr.Feature;
+import org.gdal.ogr.FeatureDefn;
+import org.gdal.ogr.FieldDefn;
+import org.gdal.ogr.Geometry;
+import org.gdal.ogr.Layer;
+import org.gdal.ogr.ogr;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.gpkg.overlay.OsmMapShapeConverter;
@@ -65,6 +73,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -282,11 +291,107 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 break;
+            case R.id.action_open_shape:
+                try {
+                    readShp(FilePathManage.getInstance().getRootDir() + "//shp//poly.shp");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    // 读取shp
+    private void readShp(String shpPath) throws UnsupportedEncodingException {
+        // 注册所有的驱动
+        ogr.RegisterAll();
+        String encoding = gdal.GetConfigOption("SHAPE_ENCODING", null);
+        // 为了支持中文路径，请添加下面这句代码
+        gdal.SetConfigOption("GDAL_FILENAME_IS_UTF8", "NO");
+        // 为了使属性表字段支持中文，请添加下面这句
+        gdal.SetConfigOption("SHAPE_ENCODING", "UTF-8");
+
+        //打开文件
+        DataSource ds = ogr.Open(shpPath, 0);
+        if (ds == null) {
+            System.out.println("打开文件失败！");
+            return;
+        }
+        System.out.println("打开文件成功！");
+
+        // 获取该数据源中的图层个数，一般shp数据图层只有一个，如果是mdb、dxf等图层就会有多个
+//        int iLayerCount = ds.GetLayerCount();
+        // 获取第一个图层
+        Layer oLayer = ds.GetLayerByIndex(0);
+        if (oLayer == null) {
+            System.out.println("获取第0个图层失败！\n");
+            return;
+        }
+
+        // 对图层进行初始化，如果对图层进行了过滤操作，执行这句后，之前的过滤全部清空
+        oLayer.ResetReading();
+        // 通过属性表的SQL语句对图层中的要素进行筛选，这部分详细参考SQL查询章节内容
+        //oLayer.SetAttributeFilter("\"NAME99\"LIKE \"北京市市辖区\"");
+        // 通过指定的几何对象对图层中的要素进行筛选
+        //oLayer.SetSpatialFilter();
+        // 通过指定的四至范围对图层中的要素进行筛选
+        //oLayer.SetSpatialFilterRect();
+
+        // 获取图层中的属性表表头并输出
+        FeatureDefn oDefn = oLayer.GetLayerDefn();
+        int iFieldCount = oDefn.GetFieldCount();
+        for (int iAttr = 0; iAttr < iFieldCount; iAttr++) {
+            FieldDefn oField = oDefn.GetFieldDefn(iAttr);
+
+            String content = oField.GetNameRef() + ": " +
+                    oField.GetFieldTypeName(oField.GetFieldType()) + "(" +
+                    oField.GetWidth() + "." + oField.GetPrecision() + ")";
+            System.out.println(content);
+        }
+
+        // 输出图层中的要素个数
+        System.out.println("要素个数 = " + oLayer.GetFeatureCount(0));
+
+        Feature oFeature = null;
+        // 下面开始遍历图层中的要素
+        while ((oFeature = oLayer.GetNextFeature()) != null) {
+            System.out.println("当前处理第" + oFeature.GetFID() + "个:\n属性值：");
+            // 获取要素中的属性表内容
+            for (int iField = 0; iField < iFieldCount; iField++) {
+                FieldDefn oFieldDefn = oDefn.GetFieldDefn(iField);
+                int type = oFieldDefn.GetFieldType();
+
+                switch (type) { // 只支持下面四种
+                    case ogr.OFTString:
+                        System.out.println(oFeature.GetFieldAsString(iField) + "\t");
+                        break;
+                    case ogr.OFTReal:
+                        System.out.println(oFeature.GetFieldAsDouble(iField) + "\t");
+                        break;
+                    case ogr.OFTInteger:
+                        System.out.println(oFeature.GetFieldAsInteger(iField) + "\t");
+                        break;
+                    case ogr.OFTDate:
+//                        oFeature.GetFieldAsDateTime();
+                        break;
+                    default:
+                        System.out.println(oFeature.GetFieldAsString(iField) + "\t");
+                        break;
+                }
+            }
+
+            // 获取要素中的几何体
+            Geometry oGeometry = oFeature.GetGeometryRef();
+            System.out.println(oGeometry.ExportToJson());
+        }
+
+        System.out.println("数据集关闭！");
+
+    }
+
 
     private void initAndShowLayerView() throws Exception {
         layerContainer = (LinearLayout) findViewById(R.id.layer_list_container);

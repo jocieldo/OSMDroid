@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 import rgi.store.routingnetworks.Edge;
 import rgi.store.routingnetworks.EdgeDirecctionality;
 
-import static com.rgi.store.routingnetworks.triangle.TriangleRoutingNetworkStoreReader.TRIANGLE_NO_DATA_LINE;
+import static rgi.store.routingnetworks.triangle.TriangleRoutingNetworkStoreReader.TRIANGLE_NO_DATA_LINE;
 
 /**
  * Utility class that parses a Triangle .edge file header line, and provides a
@@ -112,10 +112,10 @@ final class EdgeFileHeader {
                     line));
         }
 
-        final int edgeIdentifier = Integer.parseInt(matcher.group("edgeIdentifier")); // TODO make constant
+        final int edgeIdentifier = Integer.parseInt(matcher.group(Integer.parseInt("edgeIdentifier"))); // TODO make constant
 
-        final int endpoint0 = Integer.parseInt(matcher.group("endpoint0")); // TODO make constant
-        final int endpoint1 = Integer.parseInt(matcher.group("endpoint1")); // TODO make constant
+        final int endpoint0 = Integer.parseInt(matcher.group(Integer.parseInt("endpoint0"))); // TODO make constant
+        final int endpoint1 = Integer.parseInt(matcher.group(Integer.parseInt("endpoint1"))); // TODO make constant
 
         return new Edge(edgeIdentifier,
                 endpoint0,
@@ -137,8 +137,8 @@ final class EdgeFileHeader {
 
                         if (matcher.matches()) {
                             return new EdgeFileHeader(lineNumber,
-                                    Integer.parseInt(matcher.group("edgeCount")),
-                                    Integer.parseInt(matcher.group("boundaryMarkerCount")));
+                                    Integer.parseInt(matcher.group(Integer.parseInt("edgeCount"))),
+                                    Integer.parseInt(matcher.group(Integer.parseInt("boundaryMarkerCount"))));
                         }
                     }
 

@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
 
 import rgi.store.routingnetworks.Node;
 
-import static com.rgi.store.routingnetworks.triangle.TriangleRoutingNetworkStoreReader.TRIANGLE_NO_DATA_LINE;
+import static rgi.store.routingnetworks.triangle.TriangleRoutingNetworkStoreReader.TRIANGLE_NO_DATA_LINE;
 
 /**
  * Utility class that parses a Triangle .nodes file header line, and provides a
@@ -126,10 +126,10 @@ final class NodeFileHeader {
                     line));
         }
 
-        final int nodeIdentifier = Integer.parseInt(matcher.group("nodeIdentifier")); // TODO make constant
+        final int nodeIdentifier = Integer.parseInt(matcher.group(Integer.parseInt("nodeIdentifier"))); // TODO make constant
 
-        final double x = Double.parseDouble(matcher.group("x")); // TODO make constant
-        final double y = Double.parseDouble(matcher.group("y")); // TODO make constant
+        final double x = Double.parseDouble(matcher.group(Integer.parseInt("x"))); // TODO make constant
+        final double y = Double.parseDouble(matcher.group(Integer.parseInt("y"))); // TODO make constant
 
         final List<Object> attributes = new ArrayList<>(this.attributeCount);
 
@@ -166,9 +166,9 @@ final class NodeFileHeader {
 
                         if (matcher.matches()) {
                             return new NodeFileHeader(lineNumber,
-                                    Integer.parseInt(matcher.group("nodeCount")),            // TODO make constant
-                                    Integer.parseInt(matcher.group("attributeCount")),       // TODO make constant
-                                    Integer.parseInt(matcher.group("boundaryMarkerCount"))); // TODO make constant
+                                    Integer.parseInt(matcher.group(Integer.parseInt("nodeCount"))),            // TODO make constant
+                                    Integer.parseInt(matcher.group(Integer.parseInt("attributeCount"))),       // TODO make constant
+                                    Integer.parseInt(matcher.group(Integer.parseInt("boundaryMarkerCount")))); // TODO make constant
                         }
                     }
 

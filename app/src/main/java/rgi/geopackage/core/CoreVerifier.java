@@ -23,6 +23,10 @@
 
 package rgi.geopackage.core;
 
+import android.text.TextUtils;
+
+import com.gisinfo.android.core.base.util.StringUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -53,9 +57,9 @@ import rgi.geopackage.verification.TableDefinition;
 import rgi.geopackage.verification.VerificationLevel;
 import rgi.geopackage.verification.Verifier;
 
-import static com.rgi.geopackage.verification.Assert.assertArrayEquals;
-import static com.rgi.geopackage.verification.Assert.assertTrue;
-import static com.rgi.geopackage.verification.Assert.fail;
+import static rgi.geopackage.verification.Assert.assertArrayEquals;
+import static rgi.geopackage.verification.Assert.assertTrue;
+import static rgi.geopackage.verification.Assert.fail;
 
 /**
  * Verifier for the GeoPackage Core requirements
@@ -277,19 +281,18 @@ public class CoreVerifier extends Verifier {
             }
 
             assertTrue(String.format("The following tables have columns with the incorrect type:\n%s",
-                    String.join("\n",
-                            tablesWithColumnsWithBadTypes.entrySet()
-                                    .stream()
-                                    .map(entry -> String.format("%s: %s",
-                                            entry.getKey(),
-                                            String.join(", ",
-                                                    entry.getValue()
-                                                            .stream()
-                                                            .map(column -> String.format("%s (%s)",
-                                                                    column.getLeft(),
-                                                                    column.getRight()))
-                                                            .collect(Collectors.toList()))))
-                                    .collect(Collectors.toList()))),
+                    TextUtils.join("\n", tablesWithColumnsWithBadTypes.entrySet()
+                            .stream()
+                            .map(entry -> String.format("%s: %s",
+                                    entry.getKey(),
+                                    TextUtils.join(", ",
+                                            entry.getValue()
+                                                    .stream()
+                                                    .map(column -> String.format("%s (%s)",
+                                                            column.getLeft(),
+                                                            column.getRight()))
+                                                    .collect(Collectors.toList()))))
+                            .collect(Collectors.toList()))),
                     tablesWithColumnsWithBadTypes.isEmpty(),
                     Severity.Error);
         }
@@ -639,7 +642,7 @@ public class CoreVerifier extends Verifier {
                 error.append(String.format("The following %s entries with the following table_name(s) and data_type 'features' don't have an srs_id that matches their corresponding entry in %s:\n%s",
                         GeoPackageCore.ContentsTableName,
                         GeoPackageFeatures.GeometryColumnsTableName,
-                        String.join(", ", featureTableNames)));
+                        TextUtils.join(", ", featureTableNames)));
             }
 
             if (!tilesTableNames.isEmpty()) {
@@ -650,7 +653,7 @@ public class CoreVerifier extends Verifier {
                 error.append(String.format("The following %s entries with the following table_name(s) and data_type 'tiles' don't have an srs_id that matches their corresponding entry in %s:\n%s",
                         GeoPackageCore.ContentsTableName,
                         GeoPackageTiles.MatrixSetTableName,
-                        String.join(", ", tilesTableNames)));
+                        TextUtils.join(", ", tilesTableNames)));
             }
 
             assertTrue(error.toString(),
@@ -746,7 +749,7 @@ public class CoreVerifier extends Verifier {
 
             assertTrue(String.format("The following table names in the %s table have a last_change value in an incorrect format: %s",
                     GeoPackageCore.ContentsTableName,
-                    String.join(", ", contentTableNamesWithBadDates)),
+                    TextUtils.join(", ", contentTableNamesWithBadDates)),
                     contentTableNamesWithBadDates.isEmpty(),
                     Severity.Warning);
         }
