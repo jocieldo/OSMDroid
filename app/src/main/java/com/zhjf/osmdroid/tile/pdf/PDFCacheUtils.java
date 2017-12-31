@@ -15,9 +15,6 @@ import com.tom_roush.pdfbox.pdmodel.PDPage;
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle;
 import com.tom_roush.pdfbox.rendering.PDFRenderer;
 import com.zhjf.osmdroid.geopackage.FilePathManage;
-
-import rgi.common.coordinate.CoordinateReferenceSystem;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,11 +29,6 @@ import java.util.Map;
 
 import mil.nga.wkb.geom.GeometryEnvelope;
 import mil.nga.wkb.geom.Point;
-import rgi.common.BoundingBox;
-import rgi.common.Dimensions;
-import rgi.g2t.RawImageTileReader;
-import rgi.store.tiles.TileStoreException;
-
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 
@@ -147,7 +139,7 @@ public class PDFCacheUtils {
         int minZoom = zoomForPixelSize(pixelSize * max(bitmap.getWidth() * bitmap.getDensity() / 96, bitmap.getHeight() * bitmap.getDensity() / 96) / (float) (tileSize));
         int maxZoom = zoomForPixelSize(pixelSize);
         //生成所有Level中瓦片最大最小值对应的坐标
-        tminmax = new ArrayMap<>();
+        tminmax = new HashMap<>();
         for (int tz = 15; tz <= 17; tz++) {
             // lon lat
             int[] leftTopPoint = lonlatToTile(envelope.getMinY(), envelope.getMinX(), tz);
@@ -403,34 +395,34 @@ public class PDFCacheUtils {
         if (!sFolderDir.exists())
             sFolderDir.mkdirs();
 
-        Dimensions<Integer> tileSize = new Dimensions<>(256, 256);
-        BoundingBox boundingBox = new BoundingBox(envelope.getMinX(), envelope.getMinY(), envelope.getMaxX(), envelope.getMaxY());
-        try {
-            RawImageTileReader rawImageTileReader = new RawImageTileReader(cacheName, image, tileSize, new CoordinateReferenceSystem(null, "EPSG", 4326), boundingBox);
-            rawImageTileReader.stream().filter(tile -> tile.getZoomLevel() == maxZoom).forEach(tile -> {
-                try {
-                    Bitmap bitmap = tile.getImage();
-                    final File zoomDirectory = new File(sFolderDir.getAbsolutePath() + "/" + tile.getZoomLevel());
-                    if (!zoomDirectory.exists()) {
-                        zoomDirectory.mkdir();
-                    }
-                    File file = new File(zoomDirectory, tile.getRow() + "_" + tile.getColumn() + "_" + tile.getZoomLevel() + ".png");
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 96, fileOutputStream);
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                } catch (final TileStoreException exp) {
-                    throw new RuntimeException(exp);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        } catch (TileStoreException e) {
-            e.printStackTrace();
-        }
+//        Dimensions<Integer> tileSize = new Dimensions<>(256, 256);
+//        BoundingBox boundingBox = new BoundingBox(envelope.getMinX(), envelope.getMinY(), envelope.getMaxX(), envelope.getMaxY());
+//        try {
+//            RawImageTileReader rawImageTileReader = new RawImageTileReader(null, null, tileSize, new CoordinateReferenceSystem(null, "EPSG", 4326));
+//            rawImageTileReader.stream().filter(tile -> tile.getZoomLevel() == maxZoom).forEach(tile -> {
+//                try {
+//                    Bitmap bitmap = tile.getImage();
+//                    final File zoomDirectory = new File(sFolderDir.getAbsolutePath() + "/" + tile.getZoomLevel());
+//                    if (!zoomDirectory.exists()) {
+//                        zoomDirectory.mkdir();
+//                    }
+//                    File file = new File(zoomDirectory, tile.getRow() + "_" + tile.getColumn() + "_" + tile.getZoomLevel() + ".png");
+//                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+//
+//                    bitmap.compress(Bitmap.CompressFormat.PNG, 96, fileOutputStream);
+//                    fileOutputStream.flush();
+//                    fileOutputStream.close();
+//                } catch (final TileStoreException exp) {
+//                    throw new RuntimeException(exp);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//        } catch (TileStoreException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private List<ScaleLevel> scaleLevels = new ArrayList<>();

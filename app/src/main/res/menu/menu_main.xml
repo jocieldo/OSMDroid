@@ -53,38 +53,43 @@
         android:icon="@mipmap/ic_action_tags"
         android:title="打开Shape"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_read_pdf"
+        android:icon="@mipmap/ic_action_tags"
+        android:title="读取PDF"
+        app:showAsAction="never" />
 
 
     <!--<group android:id="@+id/tb_group_main">-->
 
 
-        <!--<item-->
-            <!--android:id="@+id/tb_switch"-->
-            <!--android:icon="@mipmap/ic_autorenew_white_24dp"-->
-            <!--android:title="Switch group"-->
-            <!--app:showAsAction="always" />-->
+    <!--<item-->
+    <!--android:id="@+id/tb_switch"-->
+    <!--android:icon="@mipmap/ic_autorenew_white_24dp"-->
+    <!--android:title="Switch group"-->
+    <!--app:showAsAction="always" />-->
 
     <!--</group>-->
 
     <!--<group android:id="@+id/tb_group_contextual">-->
 
-        <!--<item-->
-            <!--android:id="@+id/tb_done"-->
-            <!--android:icon="@mipmap/ic_done_white_24dp"-->
-            <!--android:title="Done"-->
-            <!--app:showAsAction="always" />-->
+    <!--<item-->
+    <!--android:id="@+id/tb_done"-->
+    <!--android:icon="@mipmap/ic_done_white_24dp"-->
+    <!--android:title="Done"-->
+    <!--app:showAsAction="always" />-->
 
-        <!--<item-->
-            <!--android:id="@+id/tb_done_all"-->
-            <!--android:icon="@mipmap/ic_done_all_white_24dp"-->
-            <!--android:title="Done all"-->
-            <!--app:showAsAction="never" />-->
+    <!--<item-->
+    <!--android:id="@+id/tb_done_all"-->
+    <!--android:icon="@mipmap/ic_done_all_white_24dp"-->
+    <!--android:title="Done all"-->
+    <!--app:showAsAction="never" />-->
 
     <!--</group>-->
 
     <!--<item-->
-        <!--android:id="@+id/tb_theme"-->
-        <!--android:icon="@mipmap/ic_visibility_white_24dp"-->
-        <!--android:title="Change Theme"-->
-        <!--app:showAsAction="always" />-->
+    <!--android:id="@+id/tb_theme"-->
+    <!--android:icon="@mipmap/ic_visibility_white_24dp"-->
+    <!--android:title="Change Theme"-->
+    <!--app:showAsAction="always" />-->
 </menu>

@@ -11,9 +11,10 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
-import com.rey.material.widget.EditText;
-import com.rey.material.widget.LinearLayout;
+
 import com.zhjf.osmdroid.common.SerializableMap;
 
 import java.util.ArrayList;
@@ -40,72 +41,72 @@ public class AttributeEditActivity extends AppCompatActivity {
         inputInfoContainer = (LinearLayout) findViewById(R.id.input_info_container);
         attrControlList = new ArrayList<>();
         for (FeatureColumn column : MainActivity.currentLayer.getColumns()) {
-            if (column.getDataType() != null && !column.isPrimaryKey()) {
-                if (column.getDataType().getClassType() == Boolean.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == Byte.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == Short.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == Integer.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == Long.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == Float.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == Double.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == String.class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                } else if (column.getDataType().getClassType() == byte[].class) {
-                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
-                    editText.setHint(column.getName());
-                    editText.setTag(column);
-                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    inputInfoContainer.addView(editText);
-                    attrControlList.add(editText);
-                }
-            }
+//            if (column.getDataType() != null && !column.isPrimaryKey()) {
+//                if (column.getDataType().getClassType() == Boolean.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == Byte.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == Short.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == Integer.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == Long.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == Float.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == Double.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == String.class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                } else if (column.getDataType().getClassType() == byte[].class) {
+//                    EditText editText = (EditText) LayoutInflater.from(this).inflate(R.layout.edit_text_layout, null);
+//                    editText.setHint(column.getName());
+//                    editText.setTag(column);
+//                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                    inputInfoContainer.addView(editText);
+//                    attrControlList.add(editText);
+//                }
+//            }
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.child_toolbar);

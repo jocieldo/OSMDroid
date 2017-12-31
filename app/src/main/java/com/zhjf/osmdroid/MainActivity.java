@@ -2,9 +2,7 @@ package com.zhjf.osmdroid;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.tom_roush.pdfbox.cos.COSStream;
-import com.tom_roush.pdfbox.pdmodel.common.PDRectangle;
 import com.tom_roush.pdfbox.util.PDFBoxResourceLoader;
 import com.zhjf.osmdroid.adapter.LayerAdapter;
 import com.zhjf.osmdroid.common.RequestConstant;
@@ -33,9 +27,9 @@ import com.zhjf.osmdroid.overlay.VectorLayer;
 import com.zhjf.osmdroid.permission.PermissionManager;
 import com.zhjf.osmdroid.tile.CustomTileSource;
 import com.zhjf.osmdroid.tile.MapTileFileProvider;
-import com.zhjf.osmdroid.tile.TileHelper;
 import com.zhjf.osmdroid.tile.pdf.PDFCacheUtils;
 
+import org.gdal.gdal.Dataset;
 import org.gdal.gdal.gdal;
 import org.gdal.ogr.DataSource;
 import org.gdal.ogr.Feature;
@@ -53,7 +47,6 @@ import org.osmdroid.gpkg.overlay.features.PolygonOptions;
 import org.osmdroid.gpkg.overlay.features.PolylineOptions;
 import org.osmdroid.tileprovider.MapTileProviderArray;
 import org.osmdroid.tileprovider.modules.MapTileModuleProviderBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.tileprovider.util.SimpleRegisterReceiver;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -75,12 +68,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mil.nga.geopackage.projection.ProjectionFactory;
-import mil.nga.wkb.geom.GeometryEnvelope;
 import mil.nga.wkb.geom.GeometryType;
 import mil.nga.wkb.geom.LineString;
 import mil.nga.wkb.geom.Point;
@@ -265,9 +256,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.action_save_photo:
-                intent = new Intent();
-                intent.setClass(getApplicationContext(), com.zhjf.osmdroid.takephoto.MainActivity.class);
-                startActivityForResult(intent, FILE_SELECTOR_REQUEST_CODE);
+//                intent = new Intent();
+//                intent.setClass(getApplicationContext(), com.zhjf.osmdroid.takephoto.MainActivity.class);
+//                startActivityForResult(intent, FILE_SELECTOR_REQUEST_CODE);
                 break;
             case R.id.action_create_tile:
                 try {
@@ -298,17 +289,36 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 break;
+
+            case R.id.action_read_pdf:
+                try {
+                    readPdf(FilePathManage.getInstance().getRootDir() + "//home.pdf");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void readPdf(String pdfPath) throws Exception {
+        gdal.AllRegister();
+        Dataset dataset = gdal.Open(pdfPath);
+        if (dataset == null) {
+            throw new Exception(gdal.GetLastErrorNo() + ":" + gdal.GetLastErrorMsg());
+        }
+
+        int rasterCount = dataset.getRasterCount();
+        System.out.println(rasterCount);
+    }
+
     // 读取shp
     private void readShp(String shpPath) throws UnsupportedEncodingException {
         // 注册所有的驱动
         ogr.RegisterAll();
-        String encoding = gdal.GetConfigOption("SHAPE_ENCODING", null);
+//        String encoding = gdal.GetConfigOption("SHAPE_ENCODING", null);
         // 为了支持中文路径，请添加下面这句代码
         gdal.SetConfigOption("GDAL_FILENAME_IS_UTF8", "NO");
         // 为了使属性表字段支持中文，请添加下面这句
@@ -346,9 +356,7 @@ public class MainActivity extends AppCompatActivity {
         for (int iAttr = 0; iAttr < iFieldCount; iAttr++) {
             FieldDefn oField = oDefn.GetFieldDefn(iAttr);
 
-            String content = oField.GetNameRef() + ": " +
-                    oField.GetFieldTypeName(oField.GetFieldType()) + "(" +
-                    oField.GetWidth() + "." + oField.GetPrecision() + ")";
+            String content = oField.GetNameRef() + ": " + oField.GetFieldTypeName(oField.GetFieldType()) + "(" + oField.GetWidth() + "." + oField.GetPrecision() + ")";
             System.out.println(content);
         }
 
@@ -391,7 +399,6 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("数据集关闭！");
 
     }
-
 
     private void initAndShowLayerView() throws Exception {
         layerContainer = (LinearLayout) findViewById(R.id.layer_list_container);
